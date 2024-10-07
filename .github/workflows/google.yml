@@ -14,6 +14,8 @@ env:
   REPOSITORY: ${{ secrets.REPOSITORY }}
   IMAGE: ${{ secrets.IMAGE }}
   WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+  SERVICE_ACCOUNT_NAME: '${{ secrets.SERVICE_ACCOUNT_NAME }}'
+  SERVICE_ACCOUNT_DOMAIN: '${{ secrets.SERVICE_ACCOUNT_DOMAIN }}'
 
 jobs:
   setup-build-publish-deploy:
@@ -38,6 +40,7 @@ jobs:
         uses: 'google-github-actions/auth@f112390a2df9932162083945e46d439060d66ec2' # google-github-actions/auth@v2
         with:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
+          service_account: '${{ env.SERVICE_ACCOUNT_NAME }}@${{ env.SERVICE_ACCOUNT_DOMAIN }}'
 
       # Authenticate Docker to Google Cloud Artifact Registry
       - name: 'Docker Auth'
